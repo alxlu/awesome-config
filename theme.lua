@@ -117,6 +117,14 @@ theme.layout_cornerne = themes_path.."default/layouts/cornernew.png"
 theme.layout_cornersw = themes_path.."default/layouts/cornersww.png"
 theme.layout_cornerse = themes_path.."default/layouts/cornersew.png"
 
+theme.lain_icons = os.getenv("HOME") .. "/.config/awesome/lain/icons/layout/default/"
+theme.layout_termfair    = theme.lain_icons .. "termfairw.png"
+theme.layout_centerfair  = theme.lain_icons .. "centerfairw.png"  -- termfair.center
+theme.layout_cascade     = theme.lain_icons .. "cascadew.png"
+theme.layout_cascadetile = theme.lain_icons .. "cascadetilew.png" -- cascade.tile
+theme.layout_centerwork  = theme.lain_icons .. "centerworkw.png"
+theme.layout_centerworkh = theme.lain_icons .. "centerworkhw.png" -- centerwork.horizontal
+
 -- Generate Awesome icon:
 theme.awesome_icon = theme_assets.awesome_icon(
     theme.menu_height, theme.bg_focus, theme.fg_focus
