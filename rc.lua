@@ -265,13 +265,22 @@ globalkeys = gears.table.join(
               {description = "swap with next client by index", group = "client"}),
     awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end,
               {description = "swap with previous client by index", group = "client"}),
-    awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end,
+
+    awful.key({ modkey, }, "\\", function () awful.screen.focus_relative( 1) end,
               {description = "focus the next screen", group = "screen"}),
-    awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end,
-              {description = "focus the screen 1", group = "screen"}),
-    awful.key({ modkey, "Control" }, "a", function () awful.screen.focus(3) end,
-              {description = "focus the previous screen", group = "screen"}),
-    awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
+    awful.key({ modkey, "Shift" }, "\\", function () awful.screen.focus_relative(-1) end,
+              {description = "focus the prev screen", group = "screen"}),
+
+    awful.key({ modkey, "Mod1" }, "h", function () awful.screen.focus(1) end,
+              {description = "focus screen 1", group = "screen"}),
+    awful.key({ modkey, "Mod1" }, "j", function () awful.screen.focus(2) end,
+              {description = "focus screen 2", group = "screen"}),
+    awful.key({ modkey, "Mod1" }, "k", function () awful.screen.focus(2) end,
+              {description = "focus screen 3", group = "screen"}),
+    awful.key({ modkey, "Mod1" }, "l", function () awful.screen.focus(3) end,
+              {description = "focus screen 4", group = "screen"}),
+
+    awful.key({ modkey,        }, "u", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"}),
     awful.key({ modkey,           }, "Tab",
         function ()
@@ -282,7 +291,7 @@ globalkeys = gears.table.join(
         end,
         {description = "go back", group = "client"}),
 
-    awful.key({ modkey, }, "q",
+    awful.key({ modkey, }, "'",
         function ()
             local fscreen = awful.screen.focused()
             local currentClients = awful.screen.focused().clients
@@ -297,6 +306,15 @@ globalkeys = gears.table.join(
             --TODO: Swap with last focused screen if focus is on main screen.
         end,
         {description = "swap with main screen", group = "screen"}),
+
+    awful.key({ modkey, "Mod1" }, "Return",
+        function ()
+            client.focus = awful.client.getmaster()
+            if client.focus then
+                client.focus:raise()
+            end
+        end,
+        {description = "focus master", group = "client"}),
     awful.key({ modkey, }, "Return",
         function ()
             local c = client.focus
@@ -521,7 +539,7 @@ awful.rules.rules = {
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = true }
+      }, properties = { titlebars_enabled = false }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
