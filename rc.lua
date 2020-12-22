@@ -290,9 +290,15 @@ globalkeys = gears.table.join(
             --TODO: Swap with last focused screen if focus is on main screen.
         end,
         {description = "swap with main screen", group = "screen"}),
+    awful.key({ modkey, }, "Return",
+        function ()
+            local c = client.focus
+            c:swap(awful.client.getmaster())
+        end,
+        {description = "move to master", group = "client"}),
 
     -- Standard program
-    awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
+    awful.key({ modkey, "Shift"   }, "Return", function () awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
