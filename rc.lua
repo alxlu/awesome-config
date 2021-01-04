@@ -271,13 +271,13 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Shift" }, "\\", function () awful.screen.focus_relative(-1) end,
               {description = "focus the prev screen", group = "screen"}),
 
-    awful.key({ modkey, "Mod1" }, "h", function () awful.screen.focus(1) end,
+    awful.key({ modkey, "Mod1" }, "h", function () awful.screen.focus(3) end,
               {description = "focus screen 1", group = "screen"}),
-    awful.key({ modkey, "Mod1" }, "j", function () awful.screen.focus(2) end,
+    awful.key({ modkey, "Mod1" }, "j", function () awful.screen.focus(1) end,
               {description = "focus screen 2", group = "screen"}),
-    awful.key({ modkey, "Mod1" }, "k", function () awful.screen.focus(2) end,
+    awful.key({ modkey, "Mod1" }, "k", function () awful.screen.focus(4) end,
               {description = "focus screen 3", group = "screen"}),
-    awful.key({ modkey, "Mod1" }, "l", function () awful.screen.focus(3) end,
+    awful.key({ modkey, "Mod1" }, "l", function () awful.screen.focus(2) end,
               {description = "focus screen 4", group = "screen"}),
 
     awful.key({ modkey,        }, "u", awful.client.urgent.jumpto,
@@ -295,13 +295,14 @@ globalkeys = gears.table.join(
         function ()
             local fscreen = awful.screen.focused()
             local currentClients = awful.screen.focused().clients
-            local remoteClients = screen[2].clients
+            local remoteClients = screen[1].clients
             for _, c in pairs(currentClients) do
-                c:move_to_screen(2)
+                c:move_to_screen(1)
             end
             for _, c in pairs(remoteClients) do
                 c:move_to_screen(fscreen.index)
             end
+            awful.screen.focus(1)
             --TODO: Figure out why this won't work screen[2]:swap(fscreen)
             --TODO: Swap with last focused screen if focus is on main screen.
         end,
@@ -372,10 +373,12 @@ globalkeys = gears.table.join(
                     history_path = awful.util.get_cache_dir() .. "/history_eval"
                   }
               end,
-              {description = "lua execute prompt", group = "awesome"}),
+              {description = "lua execute prompt", group = "awesome"})
     -- Menubar
+    --[[
     awful.key({ modkey }, "p", function() menubar.show() end,
               {description = "show the menubar", group = "launcher"})
+    --]]
 )
 
 clientkeys = gears.table.join(
@@ -533,7 +536,7 @@ awful.rules.rules = {
         role = {
           "AlarmWindow",  -- Thunderbird's calendar.
           "ConfigManager",  -- Thunderbird's about:config.
-          "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
+          --"pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
         }
       }, properties = { floating = true }},
 
