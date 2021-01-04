@@ -62,11 +62,13 @@ editor_cmd = terminal .. " -e " .. editor
 -- However, you can use another modifier like Mod1, but it may interact with others.
 modkey = "Mod4"
 
+lain.layout.cascade.tile.ncol = 2
+lain.layout.cascade.tile.offset_x = 2
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
+    lain.layout.cascade.tile,
     awful.layout.suit.tile,
     lain.layout.termfair.center,
-    lain.layout.cascade.tile,
     lain.layout.cascade,
     lain.layout.centerwork,
     awful.layout.suit.floating,
@@ -167,6 +169,15 @@ local function set_wallpaper(s)
         gears.wallpaper.maximized(wallpaper, s, true)
     end
 end
+
+-- Add titlebars to floating windows
+client.connect_signal("property::floating", function(c)
+    if c.floating then
+        awful.titlebar.show(c)
+    else
+        awful.titlebar.hide(c)
+    end
+end)
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
