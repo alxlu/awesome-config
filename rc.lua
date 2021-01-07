@@ -431,8 +431,19 @@ clientkeys = gears.table.join(
         {description = "toggle fullscreen", group = "client"}),
     awful.key({ modkey,    }, "q",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
-    awful.key({ "Mod1" }, "space",  awful.client.floating.toggle                     ,
+    awful.key({ "Mod1" }, "space",  awful.client.floating.toggle,
               {description = "toggle floating", group = "client"}),
+    awful.key({ "Mod1", "Shift"}, "space", function ()
+      local fscreen = awful.screen.focused()
+      local isFloatingLayout = (awful.layout.get(fscreen) == awful.layout.suit.floating)
+      local currentClients = awful.screen.focused().clients
+      if not isFloatingLayout then
+          for _, c in pairs(currentClients) do
+             awful.client.floating.set(c, false)
+          end
+      end
+    end,
+    { description = "unfloat all windows", group = "client" }),
     awful.key({ modkey }, "c", function (c)
       helpers.single_double_tap(
           function ()
