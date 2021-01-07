@@ -21,6 +21,8 @@ require("awful.hotkeys_popup.keys")
 -- lain
 local lain = require("lain")
 
+local helpers = require("helpers")
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -428,6 +430,16 @@ clientkeys = gears.table.join(
               {description = "close", group = "client"}),
     awful.key({ "Mod1" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
+    awful.key({ modkey }, "c", function (c)
+      helpers.single_double_tap(
+          function ()
+              awful.placement.centered(c.focus)
+          end,
+          function ()
+              awful.placement.next_to_mouse(c.focus)
+          end)
+    end,
+    {description = "center", group = "client"}),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
               {description = "move to master", group = "client"}),
     awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
