@@ -23,6 +23,8 @@ local lain = require("lain")
 
 local helpers = require("helpers")
 
+local vertical = require("vertical")
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -69,7 +71,10 @@ lain.layout.cascade.tile.offset_x = 2
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     lain.layout.cascade.tile,
+    awful.layout.suit.spiral.dwindle,
+    vertical,
     awful.layout.suit.tile,
+    awful.layout.suit.spiral,
     lain.layout.termfair.center,
     lain.layout.cascade,
     lain.layout.centerwork,
@@ -79,8 +84,6 @@ awful.layout.layouts = {
     awful.layout.suit.tile.top,
     awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
     awful.layout.suit.max.fullscreen,
     awful.layout.suit.magnifier,
@@ -196,10 +199,10 @@ awful.screen.connect_for_each_screen(function(s)
         layout = { awful.layout.layouts[1] }
       }, {
         names = defaultNames,
-        layout = { awful.layout.layouts[2] }
+        layout = { awful.layout.layouts[3] }
       }, {
         names = defaultNames,
-        layout = { awful.layout.layouts[2] }
+        layout = { awful.layout.layouts[3] }
       }, {
         names = defaultNames,
         layout = { awful.layout.layouts[2] }
