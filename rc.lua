@@ -611,6 +611,28 @@ awful.rules.rules = {
     { rule_any = {type = { "normal", "dialog" }
       }, properties = { titlebars_enabled = false }
     },
+    -- Scratchpad
+    { rule_any = {
+        instance = {
+            "scratchpad"
+        },
+        class = {
+            "scratchpad"
+        },
+    },
+    properties = {
+        skip_taskbar = true,
+        floating = true,
+        ontop = false,
+        -- minimized = true,
+        sticky = false,
+        width = 950,
+        height = 650,
+        placement = "centered",
+        honor_workarea = true,
+        honor_padding = true
+    }
+  },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },

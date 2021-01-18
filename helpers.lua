@@ -71,4 +71,29 @@ function helpers.scratchpad(match, spawn_cmd, spawn_args)
     end
 end
 
+function helpers.scratchpad()
+  local cf = client.focus
+  if not first and cf and awful.rules.match(cf, {class ="scratchpad" }) then
+    cf.minimized = true
+  else
+    local matcher = function (c)
+      return awful.rules.match(c, {class = "scratchpad"})
+    end
+    local found = false
+    for c in awful.client.iterate(matcher) do
+      found = true
+      c.maximized = false
+      c.minimized = false
+      c.width = 950
+      c.height = 650
+      c:move_to_tag(mouse.screen.selected_tag)
+      c:raise()
+      c.floating = true
+      awful.placement.centered(c, {honor_workarea = true, honor_padding = true})
+      client.focus = c
+      break
+    end
+  end
+end
+
 return helpers
