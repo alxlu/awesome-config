@@ -71,6 +71,71 @@ function helpers.scratchpad(match, spawn_cmd, spawn_args)
     end
 end
 
+function unfloat_and_move(c, s, t, ot)
+  awful.client.floating.set(c, false)
+  c:move_to_screen(s)
+  if t == nil then
+    c:move_to_tag(screen[s].tags[1])
+  else
+    c:move_to_tag(screen[s].tags[t])
+  end
+  if ot ~= nil then
+    for _, tag in pairs(ot) do
+      c:toggle_tag(screen[s].tags[tag])
+    end
+  end
+end
+
+function helpers.test()
+  local um = unfloat_and_move
+  local clients = client.get()
+  local windowPositions = { 
+    slack = function(c) um(c, 2, 1, {2, 3}) end,
+    outlook = function(c) um(c, 2) end,
+    workchrome = function(c) um(c, 2, 2) end,
+    devchrome = function(c) um(c, 2, 3) end,
+    lxzdiscord = function(c) um(c, 3) end,
+    famslack = function(c) um(c, 3, 2) end,
+    hey = function(c) um(c, 3, 1, {2, 3}) end,
+    messenger = function(c) um(c, 3, 3) end,
+    spotify = function(c) um(c, 4) end,
+    todoist = function(c) um(c, 4) end,
+    default = function(c) c:move_to_screen(1) end
+  }
+
+  for _, c in pairs(clients) do
+    (windowPositions[c.class] or windowPositions["default"])(c)
+  end
+  awful.screen.focus(1)
+end
+
+function helpers.worklayout()
+  local um = unfloat_and_move
+  local clients = client.get()
+  local windowPositions = { 
+    devst = function(c)
+      um(c, 1, 1)
+      awful.layout.set(awful.layout.suit.spiral.dwindle, screen[1].tag[1])
+    end,
+    slack = function(c) um(c, 2, 1, {2, 3}) end,
+    outlook = function(c) um(c, 2) end,
+    workchrome = function(c) um(c, 4, 1, {2}) end,
+    devchrome = function(c) um(c, 3, 1) end,
+    lxzdiscord = function(c) um(c, 3, 5) end,
+    famslack = function(c) um(c, 3, 5) end,
+    messenger = function(c) um(c, 3, 6) end,
+    hey = function(c) um(c, 3, 5, {6}) end,
+    spotify = function(c) um(c, 4, 5) end,
+    todoist = function(c) um(c, 4, 5) end,
+    default = function(c) um(c, 1, 2) end
+  }
+
+  for _, c in pairs(clients) do
+    (windowPositions[c.class] or windowPositions["default"])(c)
+  end
+  awful.screen.focus(1)
+end
+
 function helpers.scratchpad()
   local cf = client.focus
   if not first and cf and awful.rules.match(cf, {class ="scratchpad" }) then
