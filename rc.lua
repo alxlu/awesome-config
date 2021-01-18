@@ -25,6 +25,7 @@ local helpers = require("helpers")
 
 local vertical = require("vertical")
 
+naughty.config.defaults['icon_size'] = 100
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -300,6 +301,8 @@ globalkeys = gears.table.join(
     ),
     awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
               {description = "show main menu", group = "awesome"}),
+    awful.key({ modkey,           }, "b", naughty.destroy_all_notifications,
+              {description = "dismiss notifications", group = "awesome"}),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
