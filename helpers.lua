@@ -161,4 +161,16 @@ function helpers.scratchpad()
   end
 end
 
+function helpers.swapscreen(s)
+  local screenClients = screen[s].clients
+  local remoteClients = screen[1].clients
+  for _, c in pairs(screenClients) do
+    c:move_to_screen(1)
+  end
+  for _, c in pairs(remoteClients) do
+    c:move_to_screen(s)
+  end
+  awful.screen.focus(1)
+end
+
 return helpers

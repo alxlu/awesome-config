@@ -324,6 +324,15 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Mod1" }, "l", function () awful.screen.focus(2) end,
               {description = "focus screen 4", group = "screen"}),
 
+    awful.key({ modkey, "Mod1", "Shift" }, "h", function () helpers.swapscreen(3) end,
+              {description = "focus screen 1", group = "screen"}),
+    awful.key({ modkey, "Mod1", "Shift" }, "j", function () helpers.swapscreen(1) end,
+              {description = "focus screen 2", group = "screen"}),
+    awful.key({ modkey, "Mod1", "Shift" }, "k", function () helpers.swapscreen(4) end,
+              {description = "focus screen 3", group = "screen"}),
+    awful.key({ modkey, "Mod1", "Shift" }, "l", function () helpers.swapscreen(2) end,
+              {description = "focus screen 4", group = "screen"}),
+
     awful.key({ modkey,        }, "u", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"}),
     awful.key({ modkey,           }, "Tab",
