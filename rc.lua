@@ -24,6 +24,7 @@ local lain = require("lain")
 local helpers = require("helpers")
 
 local vertical = require("vertical")
+local cascade = require("cascade")
 
 naughty.config.defaults['icon_size'] = 100
 -- {{{ Error handling
@@ -71,7 +72,8 @@ lain.layout.cascade.tile.ncol = 2
 lain.layout.cascade.tile.offset_x = 2
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    lain.layout.cascade.tile,
+    --lain.layout.cascade.tile,
+    cascade.tile,
     awful.layout.suit.spiral.dwindle,
     vertical,
     awful.layout.suit.tile,
