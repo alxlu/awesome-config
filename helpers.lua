@@ -161,6 +161,21 @@ function helpers.scratchpad()
   end
 end
 
+function helpers.dragonFocus(c)
+  local cf = client.focus
+  local matcher = function(c)
+    return awful.rules.match(c, {class = "Dragon"})
+  end
+  for c in awful.client.iterate(matcher) do
+    c:move_to_tag(mouse.screen.selected_tag)
+    c:raise()
+    c.floating = true
+    c.ontop = true
+    awful.placement.under_mouse(c)
+    client.focus = c
+    break
+  end
+end
 function helpers.swapscreen(s)
   local screenClients = screen[s].clients
   local remoteClients = screen[1].clients
