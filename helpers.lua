@@ -81,7 +81,7 @@ function helpers.test()
     local um = unfloat_and_move
     local clients = client.get()
     local windowPositions = {
-        slack = function(c) um(c, 2, 1, {2, 3}) end,
+        workslack = function(c) um(c, 2, 1, {2, 3}) end,
         outlook = function(c) um(c, 2) end,
         workchrome = function(c) um(c, 2, 2) end,
         devchrome = function(c) um(c, 2, 3) end,
@@ -108,7 +108,7 @@ function helpers.worklayout()
             um(c, 1, 1)
             awful.layout.set(awful.layout.suit.spiral.dwindle, screen[1].tag[1])
         end,
-        slack = function(c) um(c, 2, 1, {2, 3}) end,
+        workslack = function(c) um(c, 2, 1, {2, 3}) end,
         outlook = function(c) um(c, 2) end,
         workchrome = function(c) um(c, 4, 1, {2}) end,
         devchrome = function(c) um(c, 3, 1) end,
