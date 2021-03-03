@@ -335,9 +335,17 @@ globalkeys = gears.table.join(
     awful.key({ modkey, "Mod1", "Shift" }, "l", function () helpers.swapscreen(2) end,
               {description = "focus screen 4", group = "screen"}),
 
-    awful.key({ modkey,        }, "u", awful.client.urgent.jumpto,
+    awful.key({ modkey,        }, "y", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"}),
     awful.key({ modkey,           }, "Tab",
+        function ()
+            awful.client.focus.history.previous()
+            if client.focus then
+                client.focus:raise()
+            end
+        end,
+        {description = "go back", group = "client"}),
+    awful.key({ modkey,           }, "u",
         function ()
             awful.client.focus.history.previous()
             if client.focus then
@@ -468,6 +476,16 @@ clientkeys = gears.table.join(
           end)
     end,
     {description = "center", group = "client"}),
+
+    awful.key({ modkey, "Mod1", "Control" }, "h", function (c) c:move_to_screen(3)  end,
+              {description = "move to screen 1", group = "client"}),
+    awful.key({ modkey, "Mod1", "Control" }, "j", function (c) c:move_to_screen(1)  end,
+              {description = "move to screen 2", group = "client"}),
+    awful.key({ modkey, "Mod1", "Control" }, "k", function (c) c:move_to_screen(4)  end,
+              {description = "move to screen 1", group = "client"}),
+    awful.key({ modkey, "Mod1", "Control" }, "l", function (c) c:move_to_screen(2)  end,
+              {description = "move to screen 4", group = "client"}),
+
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
               {description = "move to master", group = "client"}),
     awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
