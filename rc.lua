@@ -739,13 +739,16 @@ end)
 -- Disable hotkeys on NoMachine (not sure what perf on here will be like...)
 client.connect_signal("focus", function(c)
     if c and not (c.name == nil) and string.find(c.name, "NoMachine") then
+        c:keys({})
         root.keys(gears.table.join(awful.key({modkey}, "s", function()
             c.border_color = beautiful.border_focus
+            c:keys(clientkeys)
             root.keys(globalkeys)
         end, {description = "set root keys", group = "awesome"})))
         c.border_color = "#f5cb42"
     else
         c.border_color = beautiful.border_focus
+        c:keys(clientkeys)
         root.keys(globalkeys)
     end
 end)
