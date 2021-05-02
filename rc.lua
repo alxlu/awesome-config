@@ -187,6 +187,18 @@ client.connect_signal("property::floating", function(c)
     end
 end)
 
+-- Disable hotkeys on NoMachine (not sure what perf on here will be like...)
+client.connect_signal("focus", function(c)
+    c.border_color = beautiful.border_focus
+    if c and not (c.name == nil) and string.find(c.name, "NoMachine") then
+        root.keys(gears.table.join(awful.key({modkey}, "s", function()
+            root.keys(globalkeys)
+        end, {description = "set root keys", group = "awesome"})))
+    else
+        root.keys(globalkeys)
+    end
+end)
+
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
