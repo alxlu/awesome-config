@@ -60,6 +60,8 @@ beautiful.init("~/.config/awesome/theme.lua")
 terminal = "st"
 editor = os.getenv("EDITOR") or "nano"
 editor_cmd = terminal .. " -e " .. editor
+launcher =
+    "rofi -show run -lines 12 -columns 3 -padding 18 -width 60 -location 0 -sidebar-mode"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -184,18 +186,6 @@ client.connect_signal("property::floating", function(c)
         awful.titlebar.show(c)
     else
         awful.titlebar.hide(c)
-    end
-end)
-
--- Disable hotkeys on NoMachine (not sure what perf on here will be like...)
-client.connect_signal("focus", function(c)
-    c.border_color = beautiful.border_focus
-    if c and not (c.name == nil) and string.find(c.name, "NoMachine") then
-        root.keys(gears.table.join(awful.key({modkey}, "s", function()
-            root.keys(globalkeys)
-        end, {description = "set root keys", group = "awesome"})))
-    else
-        root.keys(globalkeys)
     end
 end)
 
@@ -741,6 +731,23 @@ client.connect_signal("mouse::enter", function(c)
     c:emit_signal("request::activate", "mouse_enter", {raise = false})
 end)
 
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+-- client.connect_signal("focus",
+--                       function(c) c.border_color = beautiful.border_focus end)
+
+-- Disable hotkeys on NoMachine (not sure what perf on here will be like...)
+client.connect_signal("focus", function(c)
+    if c and not (c.name == nil) and string.find(c.name, "NoMachine") then
+        root.keys(gears.table.join(awful.key({modkey}, "s", function()
+            c.border_color = beautiful.border_focus
+            root.keys(globalkeys)
+        end, {description = "set root keys", group = "awesome"})))
+        c.border_color = "#f5cb42"
+    else
+        c.border_color = beautiful.border_focus
+        root.keys(globalkeys)
+    end
+end)
+
+client.connect_signal("unfocus",
+                      function(c) c.border_color = beautiful.border_normal end)
 -- }}}
